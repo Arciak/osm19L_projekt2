@@ -2,6 +2,9 @@ package gui_package;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.*;
 import java.io.File;
 import java.util.Arrays;
@@ -19,9 +22,14 @@ public class MainWindowGUI extends JFrame {
 	private JFrame mainFrame_ = null; // glowne okno
 	private JPanel imagesPanel_ = null; // panel na zdejeci/obrazy	
 	private JPanel buttonsPanel_ = null; //panel na przyciski do wybrania obrazu, ustawiania parametrow filtru itd
+	private JPanel medianFilterPanel_ = null;
+	private JPanel contrastBrightPanel_ = null; //tutaj umieścić przyciski JScrolle do zmiany kontrastu i jasności 
 	
 	private JButton setDicomPathButton_ = null;
 	private JButton startMedianFilter_ = null;
+	private JTextField filterSizeTextFiled_ = null;
+	private JLabel setErrorInfoFromSizeTextField_ = null;
+	private int filterSize_ = 3;
 	
 	DicomFile readDicom_ = null;
 	DicomFile transformImage_ = null;
@@ -80,14 +88,49 @@ public class MainWindowGUI extends JFrame {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				// TODO Auto-generated method stub
 				BufferedImage tempImg = transformImage_.getImage_();
-				BufferedImageOp convertImg = new BufferedImageOp(tempImg,11);
+				BufferedImageOp convertImg = new BufferedImageOp(tempImg,filterSize_);
 				mConvertedImagePanel_.setImage(convertImg.median_RGB());
 			}
 		});
 		
+		/************************* ustawianie rozmiaru filtru **************************/
+		this.filterSizeTextFiled_ = new JTextField();
+		this.setErrorInfoFromSizeTextField_= new JLabel();
+		this.filterSizeTextFiled_.addKeyListener(new KeyListener() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				try{
+					filterSize_ = Integer.parseInt(filterSizeTextFiled_.getText());
+					setErrorInfoFromSizeTextField_.setText("");
+				}
+				catch(NumberFormatException notNumber){
+					setErrorInfoFromSizeTextField_.setText("Potrzeba intow");
+				}
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		this.medianFilterPanel_ = new JPanel(new BorderLayout());
+		this.medianFilterPanel_.add(this.filterSizeTextFiled_,BorderLayout.NORTH);
+		this.medianFilterPanel_.add(this.setErrorInfoFromSizeTextField_,BorderLayout.CENTER);
+		this.medianFilterPanel_.add(this.startMedianFilter_, BorderLayout.SOUTH);
+		
+		
 		this.buttonsPanel_ = new JPanel(new BorderLayout());
 		this.buttonsPanel_.add(this.setDicomPathButton_, BorderLayout.NORTH);
-		this.buttonsPanel_.add(this.startMedianFilter_, BorderLayout.SOUTH);
+		this.buttonsPanel_.add(this.medianFilterPanel_,BorderLayout.CENTER);
+
 	
 		this.mainFrame_.add(this.imagesPanel_, BorderLayout.CENTER); //dodanie panelu ze zdjeciami  do głównego okna
 		this.mainFrame_.add(this.buttonsPanel_, BorderLayout.WEST); // dodanie panelu zprzycikami
@@ -97,7 +140,6 @@ public class MainWindowGUI extends JFrame {
 		this.mainFrame_.setVisible(true);
 		this.mainFrame_.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	}
-	
+	}	
 	
 }
