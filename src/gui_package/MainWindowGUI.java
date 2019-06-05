@@ -2,12 +2,11 @@ package gui_package;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.*;
 import java.io.File;
-import java.util.Arrays;
+
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -15,12 +14,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-import javafx.event.ActionEvent;
-import javafx.scene.layout.Border;
 import osm19L_projekt2.DicomFile;
-import sun.text.resources.th.BreakIteratorInfo_th;
-import image_processing.*;
-import image_processing.BufferedImageOp;
+
 
 public class MainWindowGUI extends JFrame {
 	private JFrame mainFrame_ = null; // glowne okno
