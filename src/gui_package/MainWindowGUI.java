@@ -135,9 +135,11 @@ public class MainWindowGUI extends JFrame {
 				try{
 					filterSize_ = Integer.parseInt(filterSizeTextFiled_.getText());
 					setErrorInfoFromSizeTextField_.setText("");
+					startMedianFilter_.setEnabled(true);
 				}
 				catch(NumberFormatException notNumber){
 					setErrorInfoFromSizeTextField_.setText("Potrzeba intow");
+					startMedianFilter_.setEnabled(false);
 				}
 			}
 
@@ -161,7 +163,7 @@ public class MainWindowGUI extends JFrame {
 					setErrorInfoFromSizeTextField_.setText("");
 				}
 				catch(NumberFormatException notNumber){
-					setErrorInfoFromSizeTextField_.setText("Potrzeba intow");
+					setErrorInfoFromSizeTextField_.setText("Wymagana całkowite nieprzytse");
 				}
 			}
 		});
@@ -172,12 +174,12 @@ public class MainWindowGUI extends JFrame {
 		/*************** JASNOSC ********************/
 		brightnessSliderLabel_ = new JLabel("Zmien jasnosc obrazu");
 		brightnessSliderLabel_.setEnabled(false);
-		sliderForBrightness_ = new JSlider(1,200,1);
+		sliderForBrightness_ = new JSlider(0,200,100);
 		sliderForBrightness_.setEnabled(false);
 		sliderForBrightness_.addChangeListener(new ChangeListener() {	
 			@Override
 			public void stateChanged(ChangeEvent e) { //trzeba liczyć różnice o jaką powiększamy i o ile pomnijszamy
-				 brightness_  = (float) ((JSlider)e.getSource()).getValue();
+				 brightness_  = (float) ((JSlider)e.getSource()).getValue() - (float) 100;
 				 opBF = new RescaleOp(contrast_, brightness_, null ); 
 				 BufferedImage tempImg_ = tresholdingFunction(tresholding_,convertedImg_, wasTresholding);
 				 tempImg_ = opBF.filter(tempImg_, null );
@@ -188,12 +190,13 @@ public class MainWindowGUI extends JFrame {
 		/*************** KONTRAST ********************/
 		contrastSliderLabel_ = new JLabel("Zmien kontrast obrazu");
 		contrastSliderLabel_.setEnabled(false);
-		sliderForContrast_ = new JSlider(1,10,1);
+		sliderForContrast_ = new JSlider(0,20,10);
 		sliderForContrast_.setEnabled(false);
 		sliderForContrast_.addChangeListener(new ChangeListener() {	
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				 contrast_  = (float) ((JSlider)e.getSource()).getValue();
+				 contrast_  = (float) ((JSlider)e.getSource()).getValue() - (float)10;
+				 System.out.println(contrast_);
 				 opBF = new RescaleOp(contrast_, brightness_, null );
 				 BufferedImage tempImg_ = tresholdingFunction(tresholding_,convertedImg_, wasTresholding);
 				 tempImg_ = opBF.filter(tempImg_, null );
