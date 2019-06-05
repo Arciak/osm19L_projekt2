@@ -9,7 +9,7 @@ public class DicomImagePanel extends JPanel{
 	
 	public DicomImagePanel()
     {
-    	this.setPreferredSize(new Dimension(300,300));
+    	this.setPreferredSize(new Dimension(400,400));
     }
 
     public void setImage(BufferedImage image)
@@ -17,7 +17,7 @@ public class DicomImagePanel extends JPanel{
         if (image!=null)
         {
         	this.image_=image;
-            this.setPreferredSize(new Dimension(this.image_.getWidth(),this.image_.getHeight()));
+            //this.setPreferredSize(new Dimension(this.image_.getWidth(),this.image_.getHeight()));
             this.repaint();    
         }
     }
@@ -35,10 +35,10 @@ public class DicomImagePanel extends JPanel{
         /****** usatwienie napisu w przypadku braku wpisanego obrazu ***********/
         g2d.setFont(new Font(Font.MONOSPACED,Font.BOLD, 18));
         g2d.setColor(Color.BLACK); 
-        g2d.drawString(this.noImageState_,50,100);
+        g2d.drawString(this.noImageState_,5,100);
                 
         if (this.image_!=null)
-            g2d.drawImage(this.image_,null,0,0);
+            g2d.drawImage(this.image_,0,0, this.getWidth(), this.getHeight(),null);
     }
 	
 }
