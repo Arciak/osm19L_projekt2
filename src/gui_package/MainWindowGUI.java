@@ -224,10 +224,17 @@ public class MainWindowGUI extends JFrame {
             public void stateChanged(ChangeEvent e) {
         		tresholding_ = (int) 256/(((JSlider)e.getSource()).getValue());
         		wasTresholding = 1;
-            	BufferedImage tempImg_ = tresholdingFunction(tresholding_,convertedImg_, wasTresholding);
-				opBF = new RescaleOp(contrast_, brightness_, null);
-				tempImg_ = opBF.filter(tempImg_, null);
-				mConvertedImagePanel_.setImage(tempImg_);
+        		if( tresholding_ == 256){
+        			opBF = new RescaleOp(contrast_, brightness_, null );
+        			BufferedImage tempImg_ = opBF.filter(convertedImg_, null );
+        			mConvertedImagePanel_.setImage(tempImg_);
+        		}
+        		else {
+        			BufferedImage tempImg_ = tresholdingFunction(tresholding_,convertedImg_, wasTresholding);
+        			opBF = new RescaleOp(contrast_, brightness_, null);
+        			tempImg_ = opBF.filter(tempImg_, null);
+        			mConvertedImagePanel_.setImage(tempImg_);
+        		}
             }
         });
 
