@@ -198,12 +198,12 @@ public class MainWindowGUI extends JFrame {
 		/*************** KONTRAST ********************/
 		contrastSliderLabel_ = new JLabel("Zmien kontrast obrazu");
 		contrastSliderLabel_.setEnabled(false);
-		sliderForContrast_ = new JSlider(0,24,12);
+		sliderForContrast_ = new JSlider(0,100,50);
 		sliderForContrast_.setEnabled(false);
 		sliderForContrast_.addChangeListener(new ChangeListener() {	
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				 contrast_  = (float) ((JSlider)e.getSource()).getValue() - (float)12;
+				 contrast_  = (float) ((JSlider)e.getSource()).getValue() - (float)50;
 				 System.out.println(contrast_);
 				 opBF = new RescaleOp(contrast_, brightness_, null );
 				 BufferedImage tempImg_ = tresholdingFunction(tresholding_,convertedImg_, wasTresholding);
