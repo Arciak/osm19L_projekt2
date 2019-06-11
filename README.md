@@ -10,3 +10,6 @@ Obsluga programu:
 3. Sliderami mozna dokonywac zmian jasności, kontrastu oraz progowania obrazu.
 4. Przy zmianie kontrastu należy zmienić jasność obrazu w celu uzyskania odpowiedniej czytelności obrazu
 5. Istnieje mozliwosc wczytania kolejnego obrazu. Obrazy zostana nadpisane
+
+
+Program został napisany w środowisku prgramistycznym eclipse oraz przetestowany na systemie MacOS
