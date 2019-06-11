@@ -13,3 +13,4 @@ Obsluga programu:
 
 
 Program został napisany w środowisku prgramistycznym eclipse oraz przetestowany na systemie MacOS
+W repozytorium podano przykładowe pliki DICOM, które posłuzyły do testowania programu
